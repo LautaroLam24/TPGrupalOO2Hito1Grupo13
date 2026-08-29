@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="datos.UnidadDeVenta" table="unidad_de_venta">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+        <property name="nombreComercial" column="nombre_comercial" type="string" not-null="true"/>
+        <property name="codigo" column="codigo" type="string" length="10" unique="true" not-null="true"/>
+        <property name="superficieM2" column="superficie_m2" type="big_decimal" not-null="true"/>
+
+        <!-- Muchos a uno: la unidad pertenece a un festival -->
+        <many-to-one name="festival" class="datos.Festival" column="festival_id" not-null="true"/>
+
+        <!-- Muchos a uno: responsable a cargo (un miembro del staff) -->
+        <many-to-one name="responsable" class="datos.Personal" column="responsable_id" not-null="true"/>
+
+        <!-- Subclases -->
+        <joined-subclass name="datos.FoodTruck" table="food_truck">
+            <key column="id"/>
+            <property name="patente" column="patente" type="string" not-null="true"/>
+            <property name="requiereConexionElectrica" column="requiere_conexion_electrica" type="boolean" not-null="true"/>
+        </joined-subclass>
+
+        <joined-subclass name="datos.PuestoDesarmable" table="puesto_desarmable">
+            <key column="id"/>
+            <property name="cantidadCarpas" column="cantidad_carpas" type="integer" not-null="true"/>
+            <property name="tiempoMontajeMinutos" column="tiempo_montaje_minutos" type="integer" not-null="true"/>
+        </joined-subclass>
+    </class>
+</hibernate-mapping>
