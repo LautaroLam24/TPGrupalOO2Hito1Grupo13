@@ -17,6 +17,13 @@
         <!-- Muchos a uno: responsable a cargo (un miembro del staff) -->
         <many-to-one name="responsable" class="datos.Personal" column="responsable_id" not-null="true"/>
 
+
+		<!-- Uno a muchos: la unidad tiene su lista de platos -->
+		<set name="platos" table="plato" inverse="true" lazy="true" fetch="select">
+   			<key column="unidad_id" not-null="true"/>
+    		<one-to-many class="datos.Plato"/>
+		</set>
+	
         <!-- Subclases -->
         <joined-subclass name="datos.FoodTruck" table="food_truck">
             <key column="id"/>
