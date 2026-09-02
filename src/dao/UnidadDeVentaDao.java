@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -101,19 +102,17 @@ public class UnidadDeVentaDao {
 		}
 
 		public UnidadDeVenta traerUnidadYPlatos(long idUnidad) throws HibernateException {
-			UnidadDeVenta objeto = null;
-			try {
-				iniciaOperacion();
-				String hql = "select distinct u from UnidadDeVenta u "
-						   + "left join fetch u.platos p "
-						   + "where u.id = :idUnidad "
-						   + "order by p.precioVenta desc";
-				objeto = (UnidadDeVenta) session.createQuery(hql, UnidadDeVenta.class)
-						.setParameter("idUnidad", idUnidad)
-						.uniqueResult();
-			} finally {
-				session.close();
-			}
-			return objeto;
+		    UnidadDeVenta objeto = null;
+		    try {
+		        iniciaOperacion();
+		        String hql = "from UnidadDeVenta u where u.id = :idUnidad";
+		        objeto = (UnidadDeVenta) session.createQuery(hql)
+		                .setParameter("idUnidad", idUnidad)
+		                .uniqueResult();
+		        Hibernate.initialize(objeto.getPlatos());
+		    } finally {
+		        session.close();
+		    }
+		    return objeto;
 		}
 }	

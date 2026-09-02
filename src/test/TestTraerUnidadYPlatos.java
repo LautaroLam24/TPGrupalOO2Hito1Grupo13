@@ -20,7 +20,7 @@ public class TestTraerUnidadYPlatos {
 		System.out.println("Unidad de venta: " + u);
 		System.out.println("Tipo concreto: " + u.getClass().getSimpleName());
 
-		System.out.println("\nPlatos ofrecidos, ordenados por precio desc:");
+		System.out.println("\nPlatos ofrecidos:");
 		for (Plato p : u.getPlatos()) {
 			System.out.println("   - " + p);
 		}
