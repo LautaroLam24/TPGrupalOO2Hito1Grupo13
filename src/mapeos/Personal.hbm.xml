@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <!-- Clase y tabla -->
+    <class name="datos.Personal" table="personal" abstract="true">
+
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <property name="nombre" column="nombre" type="string" not-null="true"/>
+
+        <property name="apellido" column="apellido" type="string" not-null="true"/>
+
+        <property name="dni" column="dni" type="string" not-null="true" unique="true"/>
+
+        <property name="fechaNacimiento"
+                  column="fecha_nacimiento"
+                  type="java.time.LocalDate"
+                  not-null="true"/>
+
+        <property name="fechaIngreso"
+                  column="fecha_ingreso"
+                  type="java.time.LocalDate"
+                  not-null="true"/>
+
+        <property name="sueldoBase"
+                  column="sueldo_base"
+                  type="big_decimal"
+                  not-null="true"/>
+
+        <!-- Relación Personal N:M UnidadDeVenta -->
+        <set name="unidades"
+             table="unidad_personal"
+             inverse="true"
+             lazy="true">
+
+            <key column="personal_id"/>
+
+            <many-to-many
+                class="datos.UnidadDeVenta"
+                column="unidad_id"/>
+
+        </set>
+
+        <!-- Subclases -->
+        <joined-subclass name="datos.Cocinero" table="cocinero">
+
+            <key column="id"/>
+
+            <property name="especialidad"
+                      column="especialidad"
+                      type="string"/>
+
+            <property name="plusPorCategoria"
+                      column="plus_por_categoria"
+                      type="big_decimal"
+                      not-null="true"/>
+
+        </joined-subclass>
+
+        <joined-subclass name="datos.Cajero" table="cajero">
+
+            <key column="id"/>
+
+            <property name="turno"
+                      column="turno"
+                      type="string"
+                      not-null="true"/>
+
+        </joined-subclass>
+
+    </class>
+
+</hibernate-mapping>
