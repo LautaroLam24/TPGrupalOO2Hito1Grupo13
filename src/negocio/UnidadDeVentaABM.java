@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.List;
 
+import datos.Plato;
 import dao.UnidadDeVentaDao;
 import datos.UnidadDeVenta;
 
@@ -52,5 +53,7 @@ public class UnidadDeVentaABM {
 	    return dao.rankingUnidadesPorGanancia();
 	}
 	
-	
+	public List<Plato> platosDestacadosDeUnidad(long idUnidad) {
+	    return dao.platosDestacadosDeUnidad(idUnidad);
+	}
 }

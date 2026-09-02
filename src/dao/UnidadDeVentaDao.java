@@ -154,4 +154,22 @@ public class UnidadDeVentaDao {
 		    return lista;
 		}
 		
-}	
+		public List<Plato> platosDestacadosDeUnidad(long idUnidad) {
+		    List<Plato> lista = null;
+		    try {
+		        iniciaOperacion();
+		        String hql = "select p from Plato p "
+		                   + "where p.unidad.id = :idUnidad "
+		                   + "  and p.precioVenta > (select avg(p2.precioVenta) "
+		                   + "                       from Plato p2 "
+		                   + "                       where p2.unidad.id = :idUnidad) "
+		                   + "order by p.precioVenta desc";
+		        lista = session.createQuery(hql, Plato.class)
+		                .setParameter("idUnidad", idUnidad)
+		                .getResultList();
+		    } finally {
+		        session.close();
+		    }
+		    return lista;
+		}
+}
