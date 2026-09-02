@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 
 import datos.UnidadDeVenta;
 
+import datos.Plato;
 public class UnidadDeVentaDao {
 
 	private static Session session;
@@ -135,4 +136,22 @@ public class UnidadDeVentaDao {
 		    }
 		    return fila;
 		}
+		
+		public List<Object[]> rankingUnidadesPorGanancia() {
+		    List<Object[]> lista = null;
+		    try {
+		        iniciaOperacion();
+		        String hql = "select u.nombreComercial, "
+		                   + "       count(p.id), "
+		                   + "       avg(p.precioVenta - p.costoProduccion) "
+		                   + "from UnidadDeVenta u join u.platos p "
+		                   + "group by u.id, u.nombreComercial "
+		                   + "order by avg(p.precioVenta - p.costoProduccion) desc";
+		        lista = session.createQuery(hql, Object[].class).getResultList();
+		    } finally {
+		        session.close();
+		    }
+		    return lista;
+		}
+		
 }	

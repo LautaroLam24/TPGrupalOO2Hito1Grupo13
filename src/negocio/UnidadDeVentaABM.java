@@ -47,4 +47,10 @@ public class UnidadDeVentaABM {
 	public Object[] estadisticaPlatosDeUnidad(long idUnidad) {
 	    return dao.estadisticaPlatosDeUnidad(idUnidad);
 	}
+	
+	public List<Object[]> rankingUnidadesPorGanancia() {
+	    return dao.rankingUnidadesPorGanancia();
+	}
+	
+	
 }

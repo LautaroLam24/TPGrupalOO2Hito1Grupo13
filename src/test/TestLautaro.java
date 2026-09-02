@@ -1,5 +1,7 @@
 package test;
 
+import java.util.List;
+
 import datos.Plato;
 import datos.UnidadDeVenta;
 import negocio.UnidadDeVentaABM;
@@ -41,9 +43,21 @@ public class TestLautaro {
             System.out.println("Precio maximo      : " + fmt(est[3]));
             System.out.println("Precio minimo      : " + fmt(est[4]));
 		}
-	}
 	
 	
+	List<Object[]> ranking = abm.rankingUnidadesPorGanancia();
+
+    System.out.println();
+    System.out.println("========================================================");
+    System.out.println("  RANKING DE UNIDADES POR GANANCIA PROMEDIO DE PLATOS");
+    System.out.println("========================================================");
+    System.out.printf("%-30s %10s %14s%n", "Unidad", "#Platos", "Gan.Prom.");
+    
+    for (Object[] fila : ranking) {
+        System.out.printf("%-30s %10s %14s%n", fila[0], fmtEntero(fila[1]), fmt(fila[2]));
+        }
+    
+    }
 
     private static long num(Object o) {
         return (o == null) ? 0 : ((Number) o).longValue();
