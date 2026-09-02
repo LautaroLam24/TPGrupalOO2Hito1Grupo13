@@ -115,4 +115,24 @@ public class UnidadDeVentaDao {
 		    }
 		    return objeto;
 		}
+		
+		public Object[] estadisticaPlatosDeUnidad(long idUnidad) {
+		    Object[] fila = null;
+		    try {
+		        iniciaOperacion();
+		        String hql = "select count(p.id), "
+		                   + "       avg(p.precioVenta), "
+		                   + "       avg(p.precioVenta - p.costoProduccion), "
+		                   + "       max(p.precioVenta), "
+		                   + "       min(p.precioVenta) "
+		                   + "from UnidadDeVenta u join u.platos p "
+		                   + "where u.id = :idUnidad";
+		        fila = (Object[]) session.createQuery(hql)
+		                .setParameter("idUnidad", idUnidad)
+		                .uniqueResult();
+		    } finally {
+		        session.close();
+		    }
+		    return fila;
+		}
 }	
