@@ -7,7 +7,6 @@ public class Pedido {
 
 	private long id;
 	private LocalDate fechaTransaccion;
-	private Festival festival;         // muchos a uno
 	private UnidadDeVenta unidad;      // muchos a uno
 	private Set<ItemPedido> items;     // uno a muchos
 
@@ -15,7 +14,6 @@ public class Pedido {
 
 	public Pedido(LocalDate fechaTransaccion, Festival festival, UnidadDeVenta unidad) {
 		this.fechaTransaccion = fechaTransaccion;
-		this.festival = festival;
 		this.unidad = unidad;
 	}
 
@@ -33,14 +31,6 @@ public class Pedido {
 
 	public void setFechaTransaccion(LocalDate fechaTransaccion) {
 		this.fechaTransaccion = fechaTransaccion;
-	}
-
-	public Festival getFestival() {
-		return festival;
-	}
-
-	public void setFestival(Festival festival) {
-		this.festival = festival;
 	}
 
 	public UnidadDeVenta getUnidad() {

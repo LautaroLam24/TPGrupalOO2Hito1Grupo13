@@ -11,6 +11,7 @@ public class ItemPedido {
 	public ItemPedido() {}
 
 	public ItemPedido(String nombre, Pedido pedido, Plato plato, int cantidad) {
+		this.nombre = nombre;
 		this.pedido = pedido;
 		this.plato = plato;
 		this.cantidad = cantidad;
