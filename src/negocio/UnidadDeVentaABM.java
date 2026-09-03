@@ -56,4 +56,8 @@ public class UnidadDeVentaABM {
 	public List<Plato> platosDestacadosDeUnidad(long idUnidad) {
 	    return dao.platosDestacadosDeUnidad(idUnidad);
 	}
+
+	public List<Object[]> rankingFoodTrucksPorCantidadPlatos(long idFestival) {
+		return dao.rankingFoodTrucksPorCantidadPlatos(idFestival);
+	}
 }
