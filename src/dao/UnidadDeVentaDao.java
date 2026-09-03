@@ -172,4 +172,30 @@ public class UnidadDeVentaDao {
 		    }
 		    return lista;
 		}
+		
+		public List<Object[]> rankingFoodTrucksPorCantidadPlatos(long idFestival) {
+
+			List<Object[]> lista = null;
+
+			try {
+				iniciaOperacion();
+
+				String hql =
+						"select ft.nombreComercial, ft.patente, count(p.id) "
+					  + "from FoodTruck ft "
+					  + "join ft.platos p "
+					  + "where ft.festival.id = :idFestival "
+					  + "group by ft.id, ft.nombreComercial, ft.patente "
+					  + "order by count(p.id) desc";
+
+				lista = session.createQuery(hql, Object[].class)
+						.setParameter("idFestival", idFestival)
+						.getResultList();
+
+			} finally {
+				session.close();
+			}
+
+			return lista;
+		}
 }
