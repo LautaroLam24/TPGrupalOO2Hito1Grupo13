@@ -28,21 +28,21 @@ public class TestLautaro {
 			System.out.println("   - " + p);
 		}
 
-		// 2) Estadistica de platos de la unidad (agregados)
-		Object[] est = abm.estadisticaPlatosDeUnidad(idUnidad);
+		// 2) Estadistica de platos de la unidad
+		Object[] est = abm.estadisticaPlatosDeUnidad(u);
 
 		System.out.println();
 		System.out.println("--------------------------------------------------------");
 		System.out.println("  ESTADISTICA DE PLATOS DE LA UNIDAD");
 		System.out.println("--------------------------------------------------------");
-		if (est == null || num(est[0]) == 0) {
+		if (est == null) {
 			System.out.println("La unidad no tiene platos cargados.");
 		} else {
-			System.out.println("Cantidad de platos : " + fmtEntero(est[0]));
-			System.out.println("Precio promedio    : " + fmt(est[1]));
-			System.out.println("Ganancia promedio  : " + fmt(est[2]));
-			System.out.println("Precio maximo      : " + fmt(est[3]));
-			System.out.println("Precio minimo      : " + fmt(est[4]));
+			System.out.println("Cantidad de platos : " + est[0]);
+			System.out.println("Precio promedio    : " + est[1]);
+			System.out.println("Ganancia promedio  : " + est[2]);
+			System.out.println("Precio maximo      : " + est[3]);
+			System.out.println("Precio minimo      : " + est[4]);
 		}
 
 		// 3) Ranking de unidades por ganancia promedio
@@ -54,14 +54,14 @@ public class TestLautaro {
 		System.out.println("========================================================");
 		System.out.printf("%-30s %10s %14s%n", "Unidad", "#Platos", "Gan.Prom.");
 		for (Object[] fila : ranking) {
-			System.out.printf("%-30s %10s %14s%n", fila[0], fmtEntero(fila[1]), fmt(fila[2]));
+			System.out.printf("%-30s %10s %14s%n", fila[0], fila[1], fila[2]);
 		}
 
 		// 4) Platos destacados
-		List<Plato> destacados = abm.platosDestacadosDeUnidad(idUnidad);
+		List<Plato> destacados = abm.platosDestacadosDeUnidad(u);
 
 		System.out.println();
-		System.out.println("Platos DESTACADOS de la unidad " + idUnidad + " (precio sobre el promedio):");
+		System.out.println("Platos DESTACADOS de la unidad " + u.getId() + " (precio sobre el promedio):");
 		if (destacados.isEmpty()) {
 			System.out.println("   (ninguno)");
 		} else {
@@ -69,19 +69,5 @@ public class TestLautaro {
 				System.out.printf("   * %-25s precio=%s%n", p.getNombre(), p.getPrecioVenta());
 			}
 		}
-	}
-
-	//helpers de formato
-
-	private static long num(Object o) {
-		return (o == null) ? 0 : ((Number) o).longValue();
-	}
-
-	private static String fmtEntero(Object o) {
-		return (o == null) ? "-" : String.valueOf(((Number) o).longValue());
-	}
-
-	private static String fmt(Object o) {
-		return (o == null) ? "-" : String.format("%,.2f", ((Number) o).doubleValue());
 	}
 }

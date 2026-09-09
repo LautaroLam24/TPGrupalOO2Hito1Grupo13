@@ -45,18 +45,19 @@ public class UnidadDeVentaABM {
 		return dao.traerUnidadYPlatos(idUnidad);
 	}
 	
-	public Object[] estadisticaPlatosDeUnidad(long idUnidad) {
-	    return dao.estadisticaPlatosDeUnidad(idUnidad);
+	public Object[] estadisticaPlatosDeUnidad(UnidadDeVenta unidad) {
+	    return dao.estadisticaPlatosDeUnidad(unidad);
 	}
+
 	
 	public List<Object[]> rankingUnidadesPorGanancia() {
 	    return dao.rankingUnidadesPorGanancia();
 	}
 	
-	public List<Plato> platosDestacadosDeUnidad(long idUnidad) {
-	    return dao.platosDestacadosDeUnidad(idUnidad);
+	public List<Plato> platosDestacadosDeUnidad(UnidadDeVenta unidad) {
+	    return dao.platosDestacadosDeUnidad(unidad);
 	}
-
+	
 	public List<Object[]> rankingFoodTrucksPorCantidadPlatos(long idFestival) {
 		return dao.rankingFoodTrucksPorCantidadPlatos(idFestival);
 	}

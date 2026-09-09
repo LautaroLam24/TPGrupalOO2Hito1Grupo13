@@ -117,7 +117,7 @@ public class UnidadDeVentaDao {
 		    return objeto;
 		}
 		
-		public Object[] estadisticaPlatosDeUnidad(long idUnidad) {
+		public Object[] estadisticaPlatosDeUnidad(UnidadDeVenta unidad) {
 		    Object[] fila = null;
 		    try {
 		        iniciaOperacion();
@@ -129,7 +129,7 @@ public class UnidadDeVentaDao {
 		                   + "from UnidadDeVenta u join u.platos p "
 		                   + "where u.id = :idUnidad";
 		        fila = (Object[]) session.createQuery(hql)
-		                .setParameter("idUnidad", idUnidad)
+		                .setParameter("idUnidad", unidad.getId())
 		                .uniqueResult();
 		    } finally {
 		        session.close();
@@ -154,7 +154,7 @@ public class UnidadDeVentaDao {
 		    return lista;
 		}
 		
-		public List<Plato> platosDestacadosDeUnidad(long idUnidad) {
+		public List<Plato> platosDestacadosDeUnidad(UnidadDeVenta unidad) {
 		    List<Plato> lista = null;
 		    try {
 		        iniciaOperacion();
@@ -165,7 +165,7 @@ public class UnidadDeVentaDao {
 		                   + "                       where p2.unidad.id = :idUnidad) "
 		                   + "order by p.precioVenta desc";
 		        lista = session.createQuery(hql, Plato.class)
-		                .setParameter("idUnidad", idUnidad)
+		                .setParameter("idUnidad", unidad.getId())
 		                .getResultList();
 		    } finally {
 		        session.close();
@@ -174,12 +174,9 @@ public class UnidadDeVentaDao {
 		}
 		
 		public List<Object[]> rankingFoodTrucksPorCantidadPlatos(long idFestival) {
-
 			List<Object[]> lista = null;
-
 			try {
 				iniciaOperacion();
-
 				String hql =
 						"select ft.nombreComercial, ft.patente, count(p.id) "
 					  + "from FoodTruck ft "
@@ -187,15 +184,12 @@ public class UnidadDeVentaDao {
 					  + "where ft.festival.id = :idFestival "
 					  + "group by ft.id, ft.nombreComercial, ft.patente "
 					  + "order by count(p.id) desc";
-
 				lista = session.createQuery(hql, Object[].class)
 						.setParameter("idFestival", idFestival)
 						.getResultList();
-
 			} finally {
 				session.close();
 			}
-
 			return lista;
 		}
 }
