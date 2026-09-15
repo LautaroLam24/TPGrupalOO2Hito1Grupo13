@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import datos.Festival;
 import datos.Personal;
 
 public class PersonalDao {
@@ -62,7 +63,8 @@ public class PersonalDao {
 		}
 	}
 
-	// devuelve Cocinero o Cajero segun corresponda
+	// entry point: unico lugar donde se recibe un id crudo,
+	// porque todavia no existe el objeto en memoria
 	public Personal traer(long idPersonal) {
 		Personal objeto = null;
 		try {
@@ -86,23 +88,33 @@ public class PersonalDao {
 		return lista;
 	}
 
-	// consulta responsables a cargo de mas de una unidad,
-	// con su tipo concreto (Cocinero/Cajero), cantidad de unidades
-	// y superficie total que administran
-	public List<Object[]> responsablesConMasDeUnaUnidad() {
-	    List<Object[]> lista = null;
+	// consulta: dado un festival, listar sus unidades de venta
+	// junto con el responsable a cargo de cada una (nombre, apellido, tipo)
+	public List<Object[]> responsablesPorFestival(Festival festival) {
+		List<Object[]> lista = null;
+		try {
+			iniciaOperacion();
+			String hql = "select u.nombreComercial, r.nombre, r.apellido, type(r) "
+					+ "from UnidadDeVenta u join u.responsable r "
+					+ "where u.festival = :festival "
+					+ "order by u.nombreComercial asc";
+			lista = session.createQuery(hql, Object[].class)
+					.setParameter("festival", festival)
+					.getResultList();
+		} finally {
+			session.close();
+		}
+		return lista;
+	}
+	
+	public Festival traerFestivalCompleto(long idFestival) {
+	    Festival festival = null;
 	    try {
 	        iniciaOperacion();
-	        String hql = "select r.nombre, r.apellido, type(r), "
-	                + "count(u.id), sum(u.superficieM2) "
-	                + "from UnidadDeVenta u join u.responsable r "
-	                + "group by r.id, r.nombre, r.apellido, type(r) "
-	                + "having count(u.id) > 1 "
-	                + "order by sum(u.superficieM2) desc";
-	        lista = session.createQuery(hql, Object[].class).getResultList();
+	        festival = (Festival) session.get(Festival.class, idFestival);
 	    } finally {
 	        session.close();
 	    }
-	    return lista;
+	    return festival;
 	}
 }
