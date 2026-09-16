@@ -4,7 +4,7 @@ Repositorio correspondiente al Trabajo Práctico Grupal de la materia **Orientac
 
 ## Grupo
 
-**Número de grupo:** Grupo XX
+**Número de grupo:** Grupo 13
 
 ## Integrantes
 
