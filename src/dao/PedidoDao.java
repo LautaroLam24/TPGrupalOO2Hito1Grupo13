@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import datos.Festival;
 import datos.Pedido;
 
 public class PedidoDao {
@@ -84,8 +85,9 @@ public class PedidoDao {
 		return lista;
 	}
 	
-	public List<Object[]> traerTopPlatosPorFestival(long idFestival, int topN) {
+	public List<Object[]> traerTopPlatosPorFestival(Festival festival, int topN) {
 	    List<Object[]> resultado = null;
+	    long idFestival= festival.getId();
 	    try {
 	        iniciaOperacion();
 	        String hql = "select pl.nombre, sum(i.cantidad) as total " +
