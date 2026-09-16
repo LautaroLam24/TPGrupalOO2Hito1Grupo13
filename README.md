@@ -39,7 +39,7 @@ En cada actualización del proyecto se deberá indicar el **caso de uso implemen
 | Actualización | Caso de uso realizado                                                                                            | Responsable           |
 | ------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------|
 | 1             | Unidad con sus listas de platos - Estadistica de platos - Ranking de unidades - Orden descendente de markups     | Lautaro Lamaita       |
-| 2             | Top 3 platos mas vendidos por festival                                                                           | Facundo Simoneta      |
+| 2             | Top X platos mas vendidos por festival                                                                           | Facundo Simonetta      |
 | 3             | Listar los responsables que estan a cargo de mas de una unidad de venta,  mostando su tipo, unidades y superficie| Mateo Salomon         |
 | 4             | Listar los Food trucks de un festival y devolver la cantidad de platos que ofrecen                               | Gabriel Mendieta      |
 
@@ -51,3 +51,6 @@ En cada actualización del proyecto se deberá indicar el **caso de uso implemen
 * Eclipse
 * Git
 * GitHub
+
+## Diagrama de clases 
+<img width="1012" height="1010" alt="Diagrama de clases" src="https://github.com/user-attachments/assets/151f914c-ad9b-4c6d-b51d-496d08b4786e" />

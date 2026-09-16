@@ -3,6 +3,7 @@ package negocio;
 import java.util.List;
 
 import dao.PedidoDao;
+import datos.Festival;
 import datos.Pedido;
 
 public class PedidoABM {
@@ -34,7 +35,7 @@ public class PedidoABM {
 		return dao.traer();
 	}
 	
-	public List<Object[]> traerTopPlatosPorFestival(long idFestival, int cant){
-		return dao.traerTopPlatosPorFestival(idFestival, cant);
+	public List<Object[]> traerTopPlatosPorFestival(Festival festival, int cant){
+		return dao.traerTopPlatosPorFestival(festival, cant);
 	}; 
 }
