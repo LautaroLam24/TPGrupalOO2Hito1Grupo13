@@ -3,6 +3,7 @@ package negocio;
 import java.util.List;
 
 import dao.PersonalDao;
+import datos.Festival;
 import datos.Personal;
 
 public class PersonalABM {
@@ -34,8 +35,12 @@ public class PersonalABM {
 	public List<Personal> traer() {
 		return dao.traer();
 	}
+	
+	public Festival traerFestivalCompleto(long idFestival) {
+	    return dao.traerFestivalCompleto(idFestival);
+	}
 
-	public List<Object[]> responsablesConMasDeUnaUnidad() {
-		return dao.responsablesConMasDeUnaUnidad();
+	public List<Object[]> responsablesPorFestival(Festival festival) {
+		return dao.responsablesPorFestival(festival);
 	}
 }
