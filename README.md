@@ -40,7 +40,7 @@ En cada actualización del proyecto se deberá indicar el **caso de uso implemen
 | ------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------|
 | 1             | Unidad con sus listas de platos - Estadistica de platos - Ranking de unidades - Orden descendente de markups     | Lautaro Lamaita       |
 | 2             | Top X platos mas vendidos por festival                                                                           | Facundo Simonetta      |
-| 3             | Listar los responsables que estan a cargo de mas de una unidad de venta,  mostando su tipo, unidades y superficie| Mateo Salomon         |
+| 3             | Listar las unidades de venta de un festival junto a su responsable, mostrando tipo (Cocinero/Cajero)             | Mateo Salomon         |
 | 4             | Listar los Food trucks de un festival y devolver la cantidad de platos que ofrecen                               | Gabriel Mendieta      |
 
 ## Tecnologías utilizadas
