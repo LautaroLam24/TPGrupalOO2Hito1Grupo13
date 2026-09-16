@@ -47,7 +47,7 @@ En cada actualización del proyecto se deberá indicar el **caso de uso implemen
 
 * Java
 * Hibernate
-* PostgreSQL
+* MySQL
 * Eclipse
 * Git
 * GitHub
