@@ -17,7 +17,7 @@ Repositorio correspondiente al Trabajo Práctico Grupal de la materia **Orientac
 
 ## Descripción del proyecto
 
-El proyecto implementa un sistema utilizando **Java, Hibernate y PostgreSQL**, aplicando una arquitectura organizada en distintas capas para separar las responsabilidades de acceso a datos, lógica de negocio y pruebas.
+El proyecto implementa un sistema utilizando **Java, Hibernate y MySQL**, aplicando una arquitectura organizada en distintas capas para separar las responsabilidades de acceso a datos, lógica de negocio y pruebas.
 
 ### Estructura principal
 
@@ -41,7 +41,7 @@ En cada actualización del proyecto se deberá indicar el **caso de uso implemen
 | 1             | Unidad con sus listas de platos - Estadistica de platos - Ranking de unidades - Orden descendente de markups     | Lautaro Lamaita       |
 | 2             | Top X platos mas vendidos por festival                                                                           | Facundo Simonetta      |
 | 3             | Listar las unidades de venta de un festival junto a su responsable, mostrando tipo (Cocinero/Cajero)             | Mateo Salomon         |
-| 4             | Listar los Food trucks de un festival y devolver la cantidad de platos que ofrecen                               | Gabriel Mendieta      |
+| 4             | Consultar FoodTrucks de un festival seleccionado por el usuario y mostrar la cantidad de platos que ofrece cada uno, ordenados de mayor a menor.                       | Gabriel Mendieta      |
 
 ## Tecnologías utilizadas
 
