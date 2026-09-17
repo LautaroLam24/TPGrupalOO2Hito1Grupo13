@@ -41,8 +41,8 @@ public class UnidadDeVentaABM {
 		return dao.traer();
 	}
 
-	public UnidadDeVenta traerUnidadYPlatos(long idUnidad) {
-		return dao.traerUnidadYPlatos(idUnidad);
+	public UnidadDeVenta traerUnidadYPlatos(UnidadDeVenta unidad) {
+	    return dao.traerUnidadYPlatos(unidad);
 	}
 	
 	public Object[] estadisticaPlatosDeUnidad(UnidadDeVenta unidad) {

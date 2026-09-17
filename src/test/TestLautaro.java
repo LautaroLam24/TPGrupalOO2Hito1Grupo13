@@ -10,22 +10,23 @@ public class TestLautaro {
 
 	public static void main(String[] args) {
 
-		long idUnidad = 1;
 		UnidadDeVentaABM abm = UnidadDeVentaABM.getInstancia();
 
-		// 1) Traer unidad y sus platos
-		UnidadDeVenta u = abm.traerUnidadYPlatos(idUnidad);
+		UnidadDeVenta u = abm.traer(1);
 
 		if (u == null) {
-			System.out.println("No existe la unidad con id " + idUnidad);
-			return;
+		    System.out.println("No existe la unidad buscada.");
+		    return;
 		}
 
-		System.out.println("Unidad de venta: " + u);
+		// 1) Traer unidad y sus platos
+		u = abm.traerUnidadYPlatos(u);
+
+		System.out.println("Unidad de venta: " + u.getNombreComercial() + " (" + u.getCodigo() + ")");
 		System.out.println("Tipo concreto: " + u.getClass().getSimpleName());
 		System.out.println("\nPlatos ofrecidos:");
 		for (Plato p : u.getPlatos()) {
-			System.out.println("   - " + p);
+		    System.out.printf("   - %-25s precio=%s%n", p.getNombre(), p.getPrecioVenta());
 		}
 
 		// 2) Estadistica de platos de la unidad
@@ -61,7 +62,7 @@ public class TestLautaro {
 		List<Plato> destacados = abm.platosDestacadosDeUnidad(u);
 
 		System.out.println();
-		System.out.println("Platos DESTACADOS de la unidad " + u.getId() + " (precio sobre el promedio):");
+		System.out.println("Platos DESTACADOS de " + u.getNombreComercial() + " (precio sobre el promedio):");
 		if (destacados.isEmpty()) {
 			System.out.println("   (ninguno)");
 		} else {

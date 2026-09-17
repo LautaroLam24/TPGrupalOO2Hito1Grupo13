@@ -102,15 +102,17 @@ public class UnidadDeVentaDao {
 			return lista;
 		}
 
-		public UnidadDeVenta traerUnidadYPlatos(long idUnidad) throws HibernateException {
+		public UnidadDeVenta traerUnidadYPlatos(UnidadDeVenta unidad) throws HibernateException {
 		    UnidadDeVenta objeto = null;
 		    try {
 		        iniciaOperacion();
-		        String hql = "from UnidadDeVenta u where u.id = :idUnidad";
-		        objeto = (UnidadDeVenta) session.createQuery(hql)
-		                .setParameter("idUnidad", idUnidad)
+		        String hql = "from UnidadDeVenta u where u = :unidad";
+		        objeto = session.createQuery(hql, UnidadDeVenta.class)
+		                .setParameter("unidad", unidad)
 		                .uniqueResult();
-		        Hibernate.initialize(objeto.getPlatos());
+		        if (objeto != null) {
+		            Hibernate.initialize(objeto.getPlatos());
+		        }
 		    } finally {
 		        session.close();
 		    }
