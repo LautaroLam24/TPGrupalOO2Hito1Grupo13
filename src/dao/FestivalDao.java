@@ -84,4 +84,26 @@ public class FestivalDao {
 		}
 		return lista;
 	}
+	
+	public List<String> traerNombresFestivales() {
+
+		List<String> lista = null;
+
+		try {
+			iniciaOperacion();
+
+			String hql =
+					"select f.nombre "
+				  + "from Festival f "
+				  + "order by f.nombre asc";
+
+			lista = session.createQuery(hql, String.class)
+					.getResultList();
+
+		} finally {
+			session.close();
+		}
+
+		return lista;
+	}
 }

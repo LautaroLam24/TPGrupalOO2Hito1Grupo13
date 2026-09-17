@@ -38,6 +38,9 @@ public class FestivalABM {
 	public List<Festival> traer() {
 		return dao.traer();
 	}
-
+	
+	public List<String> traerNombresFestivales() {
+		return dao.traerNombresFestivales();
+	}
 	
 }
