@@ -1,16 +1,15 @@
 package datos;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Cajero extends Personal {
 
-	private String turno; 
+	private String turno;
 
 	public Cajero() {}
 
 	public Cajero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, BigDecimal sueldoBase, String turno) {
+			LocalDate fechaIngreso, float sueldoBase, String turno) {
 		super(nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase);
 		this.turno = turno;
 	}

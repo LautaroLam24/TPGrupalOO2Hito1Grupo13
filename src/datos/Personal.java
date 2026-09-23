@@ -1,25 +1,24 @@
 package datos;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
-import java.util.Set;
 
 public abstract class Personal {
 
-	protected long id;
+	protected int id;
 	protected String nombre;
 	protected String apellido;
 	protected String dni;
 	protected LocalDate fechaNacimiento;
-	protected LocalDate fechaIngreso; 
-	protected BigDecimal sueldoBase;
-	protected Set<UnidadDeVenta> unidades;
+	protected LocalDate fechaIngreso;
+	protected float sueldoBase;
+	protected UnidadDeVenta unidad;
 
 	public Personal() {}
 
 	public Personal(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, BigDecimal sueldoBase) {
+			LocalDate fechaIngreso, float sueldoBase) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
@@ -28,11 +27,11 @@ public abstract class Personal {
 		this.sueldoBase = sueldoBase;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	protected void setId(long id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
@@ -76,20 +75,28 @@ public abstract class Personal {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public BigDecimal getSueldoBase() {
+	public float getSueldoBase() {
 		return sueldoBase;
 	}
 
-	public void setSueldoBase(BigDecimal sueldoBase) {
+	public void setSueldoBase(float sueldoBase) {
 		this.sueldoBase = sueldoBase;
 	}
 
-	public Set<UnidadDeVenta> getUnidades() {
-		return unidades;
+	public UnidadDeVenta getUnidad() {
+		return unidad;
 	}
 
-	public void setUnidades(Set<UnidadDeVenta> unidades) {
-		this.unidades = unidades;
+	public void setUnidad(UnidadDeVenta unidad) {
+		this.unidad = unidad;
+	}
+
+	public int calcularEdad() {
+		return Period.between(fechaNacimiento, LocalDate.now()).getYears();
+	}
+
+	public int calcularAntiguedad() {
+		return Period.between(fechaIngreso, LocalDate.now()).getYears();
 	}
 
 	@Override
