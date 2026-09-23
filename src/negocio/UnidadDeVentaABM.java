@@ -58,7 +58,17 @@ public class UnidadDeVentaABM {
 	    return dao.platosDestacadosDeUnidad(unidad);
 	}
 	
-	public List<Object[]> rankingFoodTrucksPorCantidadPlatos(String nombreFestival) {
-		return dao.rankingFoodTrucksPorCantidadPlatos(nombreFestival);
+	public List<Object[]> buscarPlatosFoodTrucks(
+			String nombreFestival,
+			float precioMinimo,
+			float precioMaximo,
+			boolean requiereConexion) {
+
+		return dao.buscarPlatosFoodTrucks(
+				nombreFestival,
+				precioMinimo,
+				precioMaximo,
+				requiereConexion
+		);
 	}
 }
