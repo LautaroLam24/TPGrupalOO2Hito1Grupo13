@@ -6,8 +6,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import datos.Festival;
 import datos.Personal;
+import datos.UnidadDeVenta;
 
 public class PersonalDao {
 
@@ -88,33 +88,28 @@ public class PersonalDao {
 		return lista;
 	}
 
-	// consulta: dado un festival, listar sus unidades de venta
-	// junto con el responsable a cargo de cada una (nombre, apellido, tipo)
-	public List<Object[]> responsablesPorFestival(Festival festival) {
-		List<Object[]> lista = null;
+	// consulta: dado un festival (nombre + temporada) y una superficie minima,
+	// devuelve las unidades de venta de ese festival con esa superficie o mas,
+	// cuyo responsable sea del tipo Cocinero
+	public List<UnidadDeVenta> unidadesConResponsableCocinero(String nombreFestival,
+			String temporada, float superficieMinima) {
+		List<UnidadDeVenta> lista = null;
 		try {
 			iniciaOperacion();
-			String hql = "select u.nombreComercial, r.nombre, r.apellido, type(r) "
-					+ "from UnidadDeVenta u join u.responsable r "
-					+ "where u.festival = :festival "
-					+ "order by u.nombreComercial asc";
-			lista = session.createQuery(hql, Object[].class)
-					.setParameter("festival", festival)
+			String hql = "select u from UnidadDeVenta u join u.responsable r "
+					+ "where u.festival.nombre = :nombreFestival "
+					+ "  and u.festival.temporada = :temporada "
+					+ "  and u.superficieM2 >= :superficieMinima "
+					+ "  and type(r) = Cocinero "
+					+ "order by u.superficieM2 desc";
+			lista = session.createQuery(hql, UnidadDeVenta.class)
+					.setParameter("nombreFestival", nombreFestival)
+					.setParameter("temporada", temporada)
+					.setParameter("superficieMinima", superficieMinima)
 					.getResultList();
 		} finally {
 			session.close();
 		}
 		return lista;
-	}
-	
-	public Festival traerFestivalCompleto(long idFestival) {
-	    Festival festival = null;
-	    try {
-	        iniciaOperacion();
-	        festival = (Festival) session.get(Festival.class, idFestival);
-	    } finally {
-	        session.close();
-	    }
-	    return festival;
 	}
 }
