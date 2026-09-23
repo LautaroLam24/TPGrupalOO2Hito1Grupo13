@@ -100,6 +100,7 @@ public class UnidadDeVentaDao {
 		return lista;
 	}
 
+	
 	public List<UnidadDeVenta> traerRankingUnidades(LocalDate desde, LocalDate hasta, String temporada,
 			long minPlatosVendidos, LocalDate ingresoMaximoCocinero) {
 		List<UnidadDeVenta> lista = null;
@@ -131,31 +132,41 @@ public class UnidadDeVentaDao {
 		return lista;
 	}
 
-	public List<Object[]> buscarPlatosFoodTrucks(String nombreFestival, float precioMinimo,
-			float precioMaximo, boolean requiereConexion) {
+	public List<Object[]> buscarPlatosFoodTrucks(
+			String nombreFestival,
+			float precioMinimo,
+			float precioMaximo,
+			boolean requiereConexion) {
+
 		List<Object[]> lista = null;
+
 		try {
 			iniciaOperacion();
-			String hql = "select ft.nombreComercial, "
-					+ "ft.patente, "
-					+ "p.nombre, "
-					+ "p.precioVenta, "
-					+ "p.costoProduccion "
-					+ "from FoodTruck ft "
-					+ "join ft.platos p "
-					+ "where ft.festival.nombre = :nombreFestival "
-					+ "and ft.requiereConexionElectrica = :requiereConexion "
-					+ "and p.precioVenta between :precioMinimo and :precioMaximo "
-					+ "order by p.precioVenta asc";
+
+			String hql =
+					"select ft.nombreComercial, "
+				  + "ft.patente, "
+				  + "p.nombre, "
+				  + "p.precioVenta, "
+				  + "p.costoProduccion "
+				  + "from FoodTruck ft "
+				  + "join ft.platos p "
+				  + "where ft.festival.nombre = :nombreFestival "
+				  + "and ft.requiereConexionElectrica = :requiereConexion "
+				  + "and p.precioVenta between :precioMinimo and :precioMaximo "
+				  + "order by p.precioVenta asc";
+
 			lista = session.createQuery(hql, Object[].class)
 					.setParameter("nombreFestival", nombreFestival)
 					.setParameter("requiereConexion", requiereConexion)
 					.setParameter("precioMinimo", precioMinimo)
 					.setParameter("precioMaximo", precioMaximo)
 					.getResultList();
+
 		} finally {
 			session.close();
 		}
+
 		return lista;
 	}
 }
