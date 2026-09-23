@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import datos.UnidadDeVenta;
+import datos.Plato;
 
 public class UnidadDeVentaDao {
 
@@ -132,23 +133,19 @@ public class UnidadDeVentaDao {
 		return lista;
 	}
 
-	public List<Object[]> buscarPlatosFoodTrucks(
+	public List<Plato> buscarPlatosFoodTrucks(
 			String nombreFestival,
 			float precioMinimo,
 			float precioMaximo,
 			boolean requiereConexion) {
 
-		List<Object[]> lista = null;
+		List<Plato> lista = null;
 
 		try {
 			iniciaOperacion();
 
 			String hql =
-					"select ft.nombreComercial, "
-				  + "ft.patente, "
-				  + "p.nombre, "
-				  + "p.precioVenta, "
-				  + "p.costoProduccion "
+					"select p "
 				  + "from FoodTruck ft "
 				  + "join ft.platos p "
 				  + "where ft.festival.nombre = :nombreFestival "
@@ -156,7 +153,7 @@ public class UnidadDeVentaDao {
 				  + "and p.precioVenta between :precioMinimo and :precioMaximo "
 				  + "order by p.precioVenta asc";
 
-			lista = session.createQuery(hql, Object[].class)
+			lista = session.createQuery(hql, Plato.class)
 					.setParameter("nombreFestival", nombreFestival)
 					.setParameter("requiereConexion", requiereConexion)
 					.setParameter("precioMinimo", precioMinimo)

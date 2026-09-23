@@ -3,6 +3,7 @@ package test;
 import java.util.List;
 import java.util.Scanner;
 
+import datos.Plato;
 import negocio.FestivalABM;
 import negocio.UnidadDeVentaABM;
 
@@ -10,20 +11,16 @@ public class TestGabriel {
 
 	public static void main(String[] args) {
 
-		FestivalABM festivalABM =
-				FestivalABM.getInstancia();
-
-		UnidadDeVentaABM unidadABM =
-				UnidadDeVentaABM.getInstancia();
+		FestivalABM festivalABM = FestivalABM.getInstancia();
+		UnidadDeVentaABM unidadABM = UnidadDeVentaABM.getInstancia();
 
 		Scanner scanner = new Scanner(System.in);
 
 		// =====================================================
-		// 1. TRAER FESTIVALES
+		// 1. MOSTRAR FESTIVALES DISPONIBLES
 		// =====================================================
 
-		List<String> festivales =
-				festivalABM.traerNombresFestivales();
+		List<String> festivales = festivalABM.traerNombresFestivales();
 
 		System.out.println();
 		System.out.println("===============================================");
@@ -51,8 +48,7 @@ public class TestGabriel {
 			return;
 		}
 
-		String nombreFestival =
-				festivales.get(opcion - 1);
+		String nombreFestival = festivales.get(opcion - 1);
 
 
 		// =====================================================
@@ -61,11 +57,11 @@ public class TestGabriel {
 
 		System.out.print("Precio minimo: $");
 		float precioMinimo =
-				Float.parseFloat(scanner.nextLine());
+				Float.parseFloat(scanner.nextLine().replace(',', '.'));
 
 		System.out.print("Precio maximo: $");
 		float precioMaximo =
-				Float.parseFloat(scanner.nextLine());
+				Float.parseFloat(scanner.nextLine().replace(',', '.'));
 
 		if (precioMinimo > precioMaximo) {
 			System.out.println("El precio minimo no puede superar al maximo.");
@@ -84,10 +80,10 @@ public class TestGabriel {
 
 
 		// =====================================================
-		// 3. CONSULTAR
+		// 3. EJECUTAR CONSULTA
 		// =====================================================
 
-		List<Object[]> lista =
+		List<Plato> platos =
 				unidadABM.buscarPlatosFoodTrucks(
 						nombreFestival,
 						precioMinimo,
@@ -97,16 +93,15 @@ public class TestGabriel {
 
 
 		System.out.println();
-		System.out.println("==============================================================");
-		System.out.println("                PLATOS ENCONTRADOS");
-		System.out.println("==============================================================");
+		System.out.println("========================================================");
+		System.out.println("                  PLATOS ENCONTRADOS");
+		System.out.println("========================================================");
 
 		System.out.println("Festival: " + nombreFestival);
-		System.out.println(
-				"Rango de precio: $"
-				+ precioMinimo
-				+ " - $"
-				+ precioMaximo
+		System.out.printf(
+				"Rango de precio: $%.2f - $%.2f%n",
+				precioMinimo,
+				precioMaximo
 		);
 
 		System.out.println(
@@ -117,7 +112,7 @@ public class TestGabriel {
 		System.out.println();
 
 
-		if (lista.isEmpty()) {
+		if (platos.isEmpty()) {
 
 			System.out.println(
 					"No se encontraron platos con esos criterios."
@@ -128,69 +123,71 @@ public class TestGabriel {
 		}
 
 
-		System.out.printf(
-				"%-22s %-12s %-22s %12s %12s%n",
-				"FoodTruck",
-				"Patente",
-				"Plato",
-				"Precio",
-				"Costo"
-		);
-
-		System.out.println(
-				"-------------------------------------------------------------------------------"
-		);
-
-
 		// =====================================================
-		// 4. LOGICA SOBRE LOS RESULTADOS
+		// 4. LOGICA CON LOS RESULTADOS
 		// =====================================================
 
 		float sumaPrecios = 0;
 		float sumaMargenes = 0;
 
-		Object[] platoMasBarato = lista.get(0);
-		Object[] platoMasCaro = lista.get(0);
+		Plato platoMasBarato = platos.get(0);
+		Plato platoMasCaro = platos.get(0);
+		Plato platoMayorMargen = platos.get(0);
+
+		System.out.printf(
+				"%-25s %12s %12s %12s%n",
+				"Plato",
+				"Precio",
+				"Costo",
+				"Margen"
+		);
+
+		System.out.println(
+				"--------------------------------------------------------------"
+		);
 
 
-		for (Object[] fila : lista) {
+		for (Plato plato : platos) {
 
-			float precio =
-					((Number) fila[3]).floatValue();
-
-			float costo =
-					((Number) fila[4]).floatValue();
+			float precio = plato.getPrecioVenta();
+			float costo = plato.getCostoProduccion();
 
 			float margen = precio - costo;
 
 
 			System.out.printf(
-					"%-22s %-12s %-22s $%11.2f $%11.2f%n",
-					fila[0],
-					fila[1],
-					fila[2],
+					"%-25s $%11.2f $%11.2f $%11.2f%n",
+					plato.getNombre(),
 					precio,
-					costo
+					costo,
+					margen
 			);
 
 
+			// Acumular datos para los promedios
 			sumaPrecios += precio;
 			sumaMargenes += margen;
 
 
-			float precioBarato =
-					((Number) platoMasBarato[3]).floatValue();
-
-			if (precio < precioBarato) {
-				platoMasBarato = fila;
+			// Buscar plato mas barato
+			if (precio < platoMasBarato.getPrecioVenta()) {
+				platoMasBarato = plato;
 			}
 
 
-			float precioCaro =
-					((Number) platoMasCaro[3]).floatValue();
+			// Buscar plato mas caro
+			if (precio > platoMasCaro.getPrecioVenta()) {
+				platoMasCaro = plato;
+			}
 
-			if (precio > precioCaro) {
-				platoMasCaro = fila;
+
+			// Buscar plato con mayor margen
+			float margenMayor =
+					platoMayorMargen.getPrecioVenta()
+					- platoMayorMargen.getCostoProduccion();
+
+			if (margen > margenMayor) {
+				platoMayorMargen = plato;
 			}
 		}
 
@@ -200,20 +197,20 @@ public class TestGabriel {
 		// =====================================================
 
 		float promedioPrecio =
-				sumaPrecios / lista.size();
+				sumaPrecios / platos.size();
 
 		float promedioMargen =
-				sumaMargenes / lista.size();
+				sumaMargenes / platos.size();
 
 
 		System.out.println();
-		System.out.println("==============================================================");
-		System.out.println("                    ANALISIS DE RESULTADOS");
-		System.out.println("==============================================================");
+		System.out.println("========================================================");
+		System.out.println("                 ANALISIS DE RESULTADOS");
+		System.out.println("========================================================");
 
 		System.out.println(
 				"Cantidad de platos encontrados: "
-				+ lista.size()
+				+ platos.size()
 		);
 
 		System.out.printf(
@@ -226,20 +223,26 @@ public class TestGabriel {
 				promedioMargen
 		);
 
-		System.out.println(
-				"Plato mas barato: "
-				+ platoMasBarato[2]
-				+ " ($"
-				+ platoMasBarato[3]
-				+ ")"
+		System.out.printf(
+				"Plato mas barato: %s - $%.2f%n",
+				platoMasBarato.getNombre(),
+				platoMasBarato.getPrecioVenta()
 		);
 
-		System.out.println(
-				"Plato mas caro: "
-				+ platoMasCaro[2]
-				+ " ($"
-				+ platoMasCaro[3]
-				+ ")"
+		System.out.printf(
+				"Plato mas caro: %s - $%.2f%n",
+				platoMasCaro.getNombre(),
+				platoMasCaro.getPrecioVenta()
+		);
+
+		float mayorMargen =
+				platoMayorMargen.getPrecioVenta()
+				- platoMayorMargen.getCostoProduccion();
+
+		System.out.printf(
+				"Plato con mayor margen: %s - $%.2f%n",
+				platoMayorMargen.getNombre(),
+				mayorMargen
 		);
 
 

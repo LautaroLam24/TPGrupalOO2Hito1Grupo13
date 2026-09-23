@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.UnidadDeVentaDao;
 import datos.UnidadDeVenta;
+import datos.Plato;
 
 public class UnidadDeVentaABM {
 
@@ -58,7 +59,7 @@ public class UnidadDeVentaABM {
 		return dao.traerRankingUnidades(desde, hasta, temporada, minPlatosVendidos, ingresoMaximo);
 	}
 
-	public List<Object[]> buscarPlatosFoodTrucks(
+	public List<Plato> buscarPlatosFoodTrucks(
 			String nombreFestival,
 			float precioMinimo,
 			float precioMaximo,
