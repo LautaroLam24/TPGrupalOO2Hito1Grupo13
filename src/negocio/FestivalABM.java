@@ -1,6 +1,5 @@
 package negocio;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class FestivalABM {
 		return abm;
 	}
 
-	public int agregar(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin, BigDecimal costoPorSuperficie, BigDecimal costoPorMontaje, BigDecimal plusElectricidad, BigDecimal sueldoBase) {
+	public int agregar(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin, float costoPorSuperficie, float costoPorMontaje, float plusElectricidad, float sueldoBase) {
 		Festival f = new Festival(nombre, temporada, fechaInicio, fechaFin, costoPorSuperficie, costoPorMontaje, plusElectricidad, sueldoBase);
 		return dao.agregar(f);
 	}

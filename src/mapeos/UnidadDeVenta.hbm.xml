@@ -3,8 +3,8 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="datos.UnidadDeVenta" table="unidad_de_venta">
-        <id name="id" column="id">
+<class name="datos.UnidadDeVenta" table="unidad_de_venta" abstract="true">   
+	     <id name="id" column="id">
             <generator class="identity"/>
         </id>
         <property name="nombreComercial" column="nombre_comercial" type="string" not-null="true"/>

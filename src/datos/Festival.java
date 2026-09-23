@@ -1,6 +1,5 @@
 package datos;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -11,17 +10,17 @@ public class Festival {
 	private String temporada;
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
-	private BigDecimal costoPorSuperficie;
-	private BigDecimal costoPorMontaje;
-	private BigDecimal plusElectricidad;
-	private BigDecimal sueldoBase;
+	private float costoPorSuperficie;
+	private float costoPorMontaje;
+	private float plusElectricidad;
+	private float sueldoBase;
 	private Set<UnidadDeVenta> unidades;
 
 	public Festival() {}
 
 	public Festival(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin,
-			BigDecimal costoPorSuperficie, BigDecimal costoPorMontaje, BigDecimal plusElectricidad,
-			BigDecimal sueldoBase) {
+			float costoPorSuperficie, float costoPorMontaje, float plusElectricidad,
+			float sueldoBase) {
 		this.nombre = nombre;
 		this.temporada = temporada;
 		this.fechaInicio = fechaInicio;
@@ -72,35 +71,35 @@ public class Festival {
 		this.fechaFin = fechaFin;
 	}
 
-	public BigDecimal getCostoPorSuperficie() {
+	public float getCostoPorSuperficie() {
 		return costoPorSuperficie;
 	}
 
-	public void setCostoPorSuperficie(BigDecimal costoPorSuperficie) {
+	public void setCostoPorSuperficie(float costoPorSuperficie) {
 		this.costoPorSuperficie = costoPorSuperficie;
 	}
 
-	public BigDecimal getCostoPorMontaje() {
+	public float getCostoPorMontaje() {
 		return costoPorMontaje;
 	}
 
-	public void setCostoPorMontaje(BigDecimal costoPorMontaje) {
+	public void setCostoPorMontaje(float costoPorMontaje) {
 		this.costoPorMontaje = costoPorMontaje;
 	}
 
-	public BigDecimal getPlusElectricidad() {
+	public float getPlusElectricidad() {
 		return plusElectricidad;
 	}
 
-	public void setPlusElectricidad(BigDecimal plusElectricidad) {
+	public void setPlusElectricidad(float plusElectricidad) {
 		this.plusElectricidad = plusElectricidad;
 	}
 
-	public BigDecimal getSueldoBase() {
+	public float getSueldoBase() {
 		return sueldoBase;
 	}
 
-	public void setSueldoBase(BigDecimal sueldoBase) {
+	public void setSueldoBase(float sueldoBase) {
 		this.sueldoBase = sueldoBase;
 	}
 
