@@ -1,30 +1,29 @@
 package datos;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Plato {
 
-	private long id;
+	private int id;
 	private String nombre;
-	private BigDecimal precioVenta;
-	private BigDecimal costoProduccion;
+	private float precioVenta;
+	private float costoProduccion;
 	private UnidadDeVenta unidad; // muchos a uno: el plato pertenece a una unidad
 
 	public Plato() {}
 
-	public Plato(String nombre, BigDecimal precioVenta, BigDecimal costoProduccion, UnidadDeVenta unidad) {
+	public Plato(String nombre, float precioVenta, float costoProduccion, UnidadDeVenta unidad) {
 		this.nombre = nombre;
 		this.precioVenta = precioVenta;
 		this.costoProduccion = costoProduccion;
 		this.unidad = unidad;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	protected void setId(long id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
@@ -36,19 +35,19 @@ public class Plato {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getPrecioVenta() {
+	public float getPrecioVenta() {
 		return precioVenta;
 	}
 
-	public void setPrecioVenta(BigDecimal precioVenta) {
+	public void setPrecioVenta(float precioVenta) {
 		this.precioVenta = precioVenta;
 	}
 
-	public BigDecimal getCostoProduccion() {
+	public float getCostoProduccion() {
 		return costoProduccion;
 	}
 
-	public void setCostoProduccion(BigDecimal costoProduccion) {
+	public void setCostoProduccion(float costoProduccion) {
 		this.costoProduccion = costoProduccion;
 	}
 

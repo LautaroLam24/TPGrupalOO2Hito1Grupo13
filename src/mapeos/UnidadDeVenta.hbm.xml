@@ -9,21 +9,21 @@
         </id>
         <property name="nombreComercial" column="nombre_comercial" type="string" not-null="true"/>
         <property name="codigo" column="codigo" type="string" length="10" unique="true" not-null="true"/>
-        <property name="superficieM2" column="superficie_m2" type="big_decimal" not-null="true"/>
-
-        <!-- Muchos a uno: la unidad pertenece a un festival -->
+        <property name="superficieM2" column="superficie_m2" type="float" not-null="true"/>
         <many-to-one name="festival" class="datos.Festival" column="festival_id" not-null="true"/>
 
-        <!-- Muchos a uno: responsable a cargo (un miembro del staff) -->
         <many-to-one name="responsable" class="datos.Personal" column="responsable_id" not-null="true"/>
 
+        <set name="platos" table="plato" inverse="true" lazy="true" fetch="select">
+            <key column="unidad_id" not-null="true"/>
+            <one-to-many class="datos.Plato"/>
+        </set>
 
-		<!-- Uno a muchos: la unidad tiene su lista de platos -->
-		<set name="platos" table="plato" inverse="true" lazy="true" fetch="select">
-   			<key column="unidad_id" not-null="true"/>
-    		<one-to-many class="datos.Plato"/>
-		</set>
-	
+        <set name="staff" table="personal" inverse="true" lazy="true" fetch="select">
+            <key column="unidad_id"/>
+            <one-to-many class="datos.Personal"/>
+        </set>
+
         <!-- Subclases -->
         <joined-subclass name="datos.FoodTruck" table="food_truck">
             <key column="id"/>

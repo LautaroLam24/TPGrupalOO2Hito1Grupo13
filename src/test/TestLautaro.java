@@ -1,74 +1,63 @@
 package test;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import datos.Plato;
+import datos.FoodTruck;
+import datos.PuestoDesarmable;
 import datos.UnidadDeVenta;
 import negocio.UnidadDeVentaABM;
 
+/*
+ * Caso de uso: ranking de unidades de venta mas rentables.
+ * Filtros: rango de fechas, temporada del festival, minimo de platos vendidos
+ * y antiguedad minima de algun cocinero del staff.
+ * Devuelve entidades ordenadas por ganancia (la primera es la ganadora).
+ */
 public class TestLautaro {
 
 	public static void main(String[] args) {
 
 		UnidadDeVentaABM abm = UnidadDeVentaABM.getInstancia();
 
-		UnidadDeVenta u = abm.traer(1);
+		LocalDate desde = LocalDate.of(2026, 1, 1);
+		LocalDate hasta = LocalDate.of(2026, 12, 31);
+		String temporada = "Verano";
+		long minPlatosVendidos = 10;
+		int antiguedadMinimaCocinero = 5;
 
-		if (u == null) {
-		    System.out.println("No existe la unidad buscada.");
-		    return;
+		List<UnidadDeVenta> ranking = abm.traerRankingUnidades(desde, hasta, temporada,
+				minPlatosVendidos, antiguedadMinimaCocinero);
+
+		System.out.println("====================================================================================");
+		System.out.println("  RANKING DE UNIDADES MAS RENTABLES");
+		System.out.printf("  Periodo: %s a %s | Temporada: %s%n", desde, hasta, temporada);
+		System.out.printf("  Minimo %d platos vendidos | Cocinero con %d+ anios de antiguedad%n",
+				minPlatosVendidos, antiguedadMinimaCocinero);
+		System.out.println("====================================================================================");
+
+		if (ranking.isEmpty()) {
+			System.out.println("(ninguna unidad cumple los filtros)");
+			return;
 		}
 
-		// 1) Traer unidad y sus platos
-		u = abm.traerUnidadYPlatos(u);
+		int puesto = 1;
+		for (UnidadDeVenta u : ranking) {
+			System.out.printf("%d) %-20s codigo=%s  superficie=%.1f m2%n",
+					puesto++, u.getNombreComercial(), u.getCodigo(), u.getSuperficieM2());
 
-		System.out.println("Unidad de venta: " + u.getNombreComercial() + " (" + u.getCodigo() + ")");
-		System.out.println("Tipo concreto: " + u.getClass().getSimpleName());
-		System.out.println("\nPlatos ofrecidos:");
-		for (Plato p : u.getPlatos()) {
-		    System.out.printf("   - %-25s precio=%s%n", p.getNombre(), p.getPrecioVenta());
-		}
-
-		// 2) Estadistica de platos de la unidad
-		Object[] est = abm.estadisticaPlatosDeUnidad(u);
-
-		System.out.println();
-		System.out.println("--------------------------------------------------------");
-		System.out.println("  ESTADISTICA DE PLATOS DE LA UNIDAD");
-		System.out.println("--------------------------------------------------------");
-		if (est == null) {
-			System.out.println("La unidad no tiene platos cargados.");
-		} else {
-			System.out.println("Cantidad de platos : " + est[0]);
-			System.out.println("Precio promedio    : " + est[1]);
-			System.out.println("Ganancia promedio  : " + est[2]);
-			System.out.println("Precio maximo      : " + est[3]);
-			System.out.println("Precio minimo      : " + est[4]);
-		}
-
-		// 3) Ranking de unidades por ganancia promedio
-		List<Object[]> ranking = abm.rankingUnidadesPorGanancia();
-
-		System.out.println();
-		System.out.println("========================================================");
-		System.out.println("  RANKING DE UNIDADES POR GANANCIA PROMEDIO DE PLATOS");
-		System.out.println("========================================================");
-		System.out.printf("%-30s %10s %14s%n", "Unidad", "#Platos", "Gan.Prom.");
-		for (Object[] fila : ranking) {
-			System.out.printf("%-30s %10s %14s%n", fila[0], fila[1], fila[2]);
-		}
-
-		// 4) Platos destacados
-		List<Plato> destacados = abm.platosDestacadosDeUnidad(u);
-
-		System.out.println();
-		System.out.println("Platos DESTACADOS de " + u.getNombreComercial() + " (precio sobre el promedio):");
-		if (destacados.isEmpty()) {
-			System.out.println("   (ninguno)");
-		} else {
-			for (Plato p : destacados) {
-				System.out.printf("   * %-25s precio=%s%n", p.getNombre(), p.getPrecioVenta());
+			if (u instanceof FoodTruck) {
+				FoodTruck ft = (FoodTruck) u;
+				System.out.printf("   Food Truck | patente %s | %s conexion electrica%n",
+						ft.getPatente(), ft.isRequiereConexionElectrica() ? "requiere" : "no requiere");
+			} else if (u instanceof PuestoDesarmable) {
+				PuestoDesarmable pd = (PuestoDesarmable) u;
+				System.out.printf("   Puesto Desarmable | %d carpas | montaje %d min%n",
+						pd.getCantidadCarpas(), pd.getTiempoMontajeMinutos());
 			}
 		}
+
+		System.out.println();
+		System.out.println("Unidad ganadora: " + ranking.get(0).getNombreComercial());
 	}
 }

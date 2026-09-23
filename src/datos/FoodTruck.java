@@ -1,8 +1,5 @@
 package datos;
 
-import java.math.BigDecimal;
-
-
 public class FoodTruck extends UnidadDeVenta {
 
 	private String patente;
@@ -10,7 +7,7 @@ public class FoodTruck extends UnidadDeVenta {
 
 	public FoodTruck() {}
 
-	public FoodTruck(String nombreComercial, String codigo, BigDecimal superficieM2,
+	public FoodTruck(String nombreComercial, String codigo, float superficieM2,
 			Festival festival, Personal responsable, String patente, boolean requiereConexionElectrica) {
 		super(nombreComercial, codigo, superficieM2, festival, responsable);
 		this.patente = patente;

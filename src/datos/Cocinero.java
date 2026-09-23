@@ -1,17 +1,16 @@
 package datos;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Cocinero extends Personal {
 
 	private String especialidad;
-	private BigDecimal plusPorCategoria;
+	private float plusPorCategoria;
 
 	public Cocinero() {}
 
 	public Cocinero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,
-			LocalDate fechaIngreso, BigDecimal sueldoBase, String especialidad, BigDecimal plusPorCategoria) {
+			LocalDate fechaIngreso, float sueldoBase, String especialidad, float plusPorCategoria) {
 		super(nombre, apellido, dni, fechaNacimiento, fechaIngreso, sueldoBase);
 		this.especialidad = especialidad;
 		this.plusPorCategoria = plusPorCategoria;
@@ -25,11 +24,11 @@ public class Cocinero extends Personal {
 		this.especialidad = especialidad;
 	}
 
-	public BigDecimal getPlusPorCategoria() {
+	public float getPlusPorCategoria() {
 		return plusPorCategoria;
 	}
 
-	public void setPlusPorCategoria(BigDecimal plusPorCategoria) {
+	public void setPlusPorCategoria(float plusPorCategoria) {
 		this.plusPorCategoria = plusPorCategoria;
 	}
 

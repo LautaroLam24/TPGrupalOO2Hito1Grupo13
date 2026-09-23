@@ -1,27 +1,30 @@
 package datos;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Pedido {
 
-	private long id;
+	private int id;
 	private LocalDate fechaTransaccion;
-	private UnidadDeVenta unidad;      // muchos a uno
-	private Set<ItemPedido> items;     // uno a muchos
+	private Festival festival;
+	private UnidadDeVenta unidad;
+	private Set<ItemPedido> items = new HashSet<>();
 
 	public Pedido() {}
 
 	public Pedido(LocalDate fechaTransaccion, Festival festival, UnidadDeVenta unidad) {
 		this.fechaTransaccion = fechaTransaccion;
+		this.festival = festival;
 		this.unidad = unidad;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	protected void setId(long id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
@@ -31,6 +34,14 @@ public class Pedido {
 
 	public void setFechaTransaccion(LocalDate fechaTransaccion) {
 		this.fechaTransaccion = fechaTransaccion;
+	}
+
+	public Festival getFestival() {
+		return festival;
+	}
+
+	public void setFestival(Festival festival) {
+		this.festival = festival;
 	}
 
 	public UnidadDeVenta getUnidad() {
@@ -47,6 +58,10 @@ public class Pedido {
 
 	public void setItems(Set<ItemPedido> items) {
 		this.items = items;
+	}
+
+	public boolean agregarItem(Plato plato, int cantidad) {
+		return items.add(new ItemPedido(this, plato, cantidad));
 	}
 
 	@Override

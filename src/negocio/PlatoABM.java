@@ -1,6 +1,5 @@
 package negocio;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import dao.PlatoDao;
@@ -21,7 +20,7 @@ public class PlatoABM {
 		return abm;
 	}
 
-	public int agregar(String nombre, BigDecimal precioVenta, BigDecimal costoProduccion, UnidadDeVenta unidad) {
+	public int agregar(String nombre, float precioVenta, float costoProduccion, UnidadDeVenta unidad) {
 		Plato p = new Plato(nombre, precioVenta, costoProduccion, unidad);
 		return dao.agregar(p);
 	}
@@ -30,7 +29,7 @@ public class PlatoABM {
 		dao.actualizar(p);
 	}
 
-	public Plato traer(long idPlato) {
+	public Plato traer(int idPlato) {
 		return dao.traer(idPlato);
 	}
 
