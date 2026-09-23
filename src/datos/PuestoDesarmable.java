@@ -1,7 +1,5 @@
 package datos;
 
-import java.math.BigDecimal;
-
 public class PuestoDesarmable extends UnidadDeVenta {
 
 	private int cantidadCarpas;
@@ -9,7 +7,7 @@ public class PuestoDesarmable extends UnidadDeVenta {
 
 	public PuestoDesarmable() {}
 
-	public PuestoDesarmable(String nombreComercial, String codigo, BigDecimal superficieM2,
+	public PuestoDesarmable(String nombreComercial, String codigo, float superficieM2,
 			Festival festival, Personal responsable, int cantidadCarpas, int tiempoMontajeMinutos) {
 		super(nombreComercial, codigo, superficieM2, festival, responsable);
 		this.cantidadCarpas = cantidadCarpas;

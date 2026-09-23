@@ -1,23 +1,22 @@
 package datos;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
 
 public abstract class UnidadDeVenta {
 
-	protected long id;
+	protected int id;
 	protected String nombreComercial;
-	protected String codigo;          
-	protected BigDecimal superficieM2;
-	protected Festival festival;      
-	protected Personal responsable;  
-	protected Set<Plato> platos;      
-	protected Set<Personal> staff;    
+	protected String codigo;
+	protected float superficieM2;
+	protected Festival festival;
+	protected Personal responsable;
+	protected Set<Plato> platos;
+	protected Set<Personal> staff;
 
 	public UnidadDeVenta() {}
 
-	public UnidadDeVenta(String nombreComercial, String codigo, BigDecimal superficieM2,
+	public UnidadDeVenta(String nombreComercial, String codigo, float superficieM2,
 			Festival festival, Personal responsable) {
 		this.nombreComercial = nombreComercial;
 		this.codigo = codigo;
@@ -26,11 +25,11 @@ public abstract class UnidadDeVenta {
 		this.responsable = responsable;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	protected void setId(long id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
@@ -50,11 +49,11 @@ public abstract class UnidadDeVenta {
 		this.codigo = codigo;
 	}
 
-	public BigDecimal getSuperficieM2() {
+	public float getSuperficieM2() {
 		return superficieM2;
 	}
 
-	public void setSuperficieM2(BigDecimal superficieM2) {
+	public void setSuperficieM2(float superficieM2) {
 		this.superficieM2 = superficieM2;
 	}
 
