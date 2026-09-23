@@ -175,7 +175,11 @@ public class UnidadDeVentaDao {
 		    return lista;
 		}
 		
-		public List<Object[]> rankingFoodTrucksPorCantidadPlatos(String nombreFestival) {
+		public List<Object[]> buscarPlatosFoodTrucks(
+				String nombreFestival,
+				float precioMinimo,
+				float precioMaximo,
+				boolean requiereConexion) {
 
 			List<Object[]> lista = null;
 
@@ -183,15 +187,23 @@ public class UnidadDeVentaDao {
 				iniciaOperacion();
 
 				String hql =
-						"select ft.nombreComercial, ft.patente, count(p.id) "
+						"select ft.nombreComercial, "
+					  + "       ft.patente, "
+					  + "       p.nombre, "
+					  + "       p.precioVenta, "
+					  + "       p.costoProduccion "
 					  + "from FoodTruck ft "
 					  + "join ft.platos p "
 					  + "where ft.festival.nombre = :nombreFestival "
-					  + "group by ft.id, ft.nombreComercial, ft.patente "
-					  + "order by count(p.id) desc";
+					  + "and ft.requiereConexionElectrica = :requiereConexion "
+					  + "and p.precioVenta between :precioMinimo and :precioMaximo "
+					  + "order by p.precioVenta asc";
 
 				lista = session.createQuery(hql, Object[].class)
 						.setParameter("nombreFestival", nombreFestival)
+						.setParameter("requiereConexion", requiereConexion)
+						.setParameter("precioMinimo", precioMinimo)
+						.setParameter("precioMaximo", precioMaximo)
 						.getResultList();
 
 			} finally {
@@ -200,4 +212,3 @@ public class UnidadDeVentaDao {
 
 			return lista;
 		}
-}
