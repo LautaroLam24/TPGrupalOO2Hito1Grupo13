@@ -52,4 +52,5 @@ En cada actualización del proyecto se deberá indicar el **caso de uso implemen
 * GitHub
 
 ## Diagrama de clases 
-<img width="1012" height="1010" alt="Diagrama de clases" src="https://github.com/user-attachments/assets/151f914c-ad9b-4c6d-b51d-496d08b4786e" />
+<img width="1132" height="1390" alt="Diagrama de clases" src="https://github.com/user-attachments/assets/1fe453ba-222d-4ff2-8999-caa317c2c6cc" />
+
