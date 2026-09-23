@@ -11,7 +11,7 @@ public class TestMateo {
 	public static void main(String[] args) {
 
 		// unico punto de entrada con id crudo: todavia no tenemos ningun objeto
-		long idUnidadConocida = 1;
+		int idUnidadConocida = 1;
 		UnidadDeVentaABM unidadAbm = UnidadDeVentaABM.getInstancia();
 		UnidadDeVenta unidad = unidadAbm.traer(idUnidadConocida);
 
