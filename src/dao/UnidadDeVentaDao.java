@@ -188,10 +188,10 @@ public class UnidadDeVentaDao {
 
 				String hql =
 						"select ft.nombreComercial, "
-					  + "       ft.patente, "
-					  + "       p.nombre, "
-					  + "       p.precioVenta, "
-					  + "       p.costoProduccion "
+					  + "ft.patente, "
+					  + "p.nombre, "
+					  + "p.precioVenta, "
+					  + "p.costoProduccion "
 					  + "from FoodTruck ft "
 					  + "join ft.platos p "
 					  + "where ft.festival.nombre = :nombreFestival "
@@ -212,3 +212,5 @@ public class UnidadDeVentaDao {
 
 			return lista;
 		}
+
+		} // <-- esta llave cierra UnidadDeVentaDao
