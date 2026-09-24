@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -8,6 +9,8 @@ import org.hibernate.Transaction;
 
 import datos.Festival;
 import datos.Pedido;
+import datos.Plato;
+import dto.PlatoVendidoDTO;
 
 public class PedidoDao {
 	private static Session session;
@@ -85,19 +88,19 @@ public class PedidoDao {
 		return lista;
 	}
 	
-	public List<Object[]> traerTopPlatosPorFestival(Festival festival, int topN) {
-	    List<Object[]> resultado = null;
+	public List<PlatoVendidoDTO> traerTopPlatosPorFestival(Festival festival, int topN) {
+	    List<PlatoVendidoDTO> resultado = null;
 	    long idFestival= festival.getId();
 	    try {
 	        iniciaOperacion();
-	        String hql = "select pl.nombre, sum(i.cantidad) as total " +
+	        String hql = "select new dto.PlatoVendidoDTO(pl.id, pl.nombre, pl.precioVenta, sum(i.cantidad))" +
 	                     "from Pedido p " +
 	                     "join p.items i " +
 	                     "join i.plato pl " +
 	                     "where p.unidad.festival.id = :idFestival " +
 	                     "group by pl.id, pl.nombre " +
-	                     "order by total desc";
-	        resultado = session.createQuery(hql, Object[].class)
+	                     "order by sum(i.cantidad) desc";
+	        resultado = session.createQuery(hql, PlatoVendidoDTO.class)
 	                           .setParameter("idFestival", idFestival)
 	                           .setMaxResults(topN)
 	                           .list();
@@ -105,5 +108,29 @@ public class PedidoDao {
 	        session.close();
 	    }
 	    return resultado;
+	}
+	
+	public List<Plato> traerPlatosVendidosPorPrecioYFechas(float precioMinimo, LocalDate desde, LocalDate hasta) {
+	    
+	    List<Plato> lista = null;
+	    try {
+	        iniciaOperacion();
+	        String hql = "select distinct pl " +
+	                     "from Pedido p " +
+	                     "join p.items i " +
+	                     "join i.plato pl " +
+	                     "where pl.precioVenta >= :precioMinimo " +
+	                     "  and p.fechaTransaccion between :desde and :hasta " +
+	                     "order by pl.nombre asc";
+
+	        lista = session.createQuery(hql, Plato.class)
+	                       .setParameter("precioMinimo", precioMinimo)
+	                       .setParameter("desde", desde)
+	                       .setParameter("hasta", hasta)
+	                       .list();
+	    } finally {
+	        session.close();
+	    }
+	    return lista;
 	}
 }
