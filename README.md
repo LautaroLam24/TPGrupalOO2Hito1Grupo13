@@ -40,7 +40,7 @@ En cada actualización del proyecto se deberá indicar el **caso de uso implemen
 | ------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------|
 | 1             | 	Ranking de unidades de venta más rentables: rango de fechas + temporada + mínimo de platos vendidos + antigüedad mínima de un cocinero del staff, ordenado por ganancia     | Lautaro Lamaita       |
 | 2             | Top X platos mas vendidos por festival, Platos vendidos en X periodo con precio mayor a X                                                                           | Facundo Simonetta      |
-| 3             | Listar las unidades de venta de un festival junto a su responsable, mostrando tipo (Cocinero/Cajero)             | Mateo Salomon         |
+| 3             | Dado un festival (nombre y temporada) y una superficie mínima, listar sus unidades de venta —con esa superficie o más— cuyo responsable sea Cocinero, ordenadas de mayor a menor superficie.            | Mateo Salomon         |
 | 4 | Consultar platos de FoodTrucks de un festival según rango de precios y conexión eléctrica, y analizar los resultados obteniendo cantidad, precio promedio, margen promedio, plato más barato, más caro y con mayor margen. | Gabriel Mendieta |
 ## Tecnologías utilizadas
 
