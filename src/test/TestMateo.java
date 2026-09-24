@@ -2,42 +2,47 @@ package test;
 
 import java.util.List;
 
-import datos.Festival;
+import datos.FoodTruck;
+import datos.PuestoDesarmable;
 import datos.UnidadDeVenta;
 import negocio.PersonalABM;
-import negocio.UnidadDeVentaABM;
 
+/*
+ * Caso de uso: unidades de venta de un festival (nombre + temporada) con
+ * superficie minima dada, cuyo responsable sea del tipo Cocinero.
+ * Devuelve entidades UnidadDeVenta, ordenadas por superficie descendente.
+ */
 public class TestMateo {
 	public static void main(String[] args) {
 
-		// unico punto de entrada con id crudo: todavia no tenemos ningun objeto
-		int idUnidadConocida = 1;
-		UnidadDeVentaABM unidadAbm = UnidadDeVentaABM.getInstancia();
-		UnidadDeVenta unidad = unidadAbm.traer(idUnidadConocida);
+		PersonalABM abm = PersonalABM.getInstancia();
 
-		if (unidad == null) {
-			System.out.println("No existe la unidad con id " + idUnidadConocida);
+		String nombreFestival = "Festival Otoño";
+		String temporada = "2026";
+		float superficieMinima = 10f;
+
+		List<UnidadDeVenta> lista = abm.unidadesConResponsableCocinero(
+				nombreFestival, temporada, superficieMinima);
+
+		System.out.println("====================================================================");
+		System.out.println("  UNIDADES CON RESPONSABLE COCINERO");
+		System.out.printf("  Festival: %s | Temporada: %s | Superficie minima: %.1f m2%n",
+				nombreFestival, temporada, superficieMinima);
+		System.out.println("====================================================================");
+
+		if (lista.isEmpty()) {
+			System.out.println("(ninguna unidad cumple los filtros)");
 			return;
 		}
 
-		PersonalABM personalAbm = PersonalABM.getInstancia();
+		for (UnidadDeVenta u : lista) {
+			System.out.printf("- %-20s codigo=%s  superficie=%.1f m2",
+					u.getNombreComercial(), u.getCodigo(), u.getSuperficieM2());
 
-		long idFestival = unidad.getFestival().getId(); // esto SI es seguro, no dispara el proxy
-		Festival festival = personalAbm.traerFestivalCompleto(idFestival);
-
-		List<Object[]> lista = personalAbm.responsablesPorFestival(festival);
-
-		System.out.println("========================================================");
-		System.out.println("  RESPONSABLES POR UNIDAD - FESTIVAL: " + festival.getNombre());
-		System.out.println("========================================================");
-		System.out.printf("%-25s %-15s %-15s %-10s%n", "Unidad", "Nombre", "Apellido", "Tipo");
-
-		if (lista.isEmpty()) {
-			System.out.println("(no hay unidades con responsable en este festival)");
-		} else {
-			for (Object[] fila : lista) {
-				String tipo = fila[3].toString().replace("class datos.", "");
-				System.out.printf("%-25s %-15s %-15s %-10s%n", fila[0], fila[1], fila[2], tipo);
+			if (u instanceof FoodTruck) {
+				System.out.println("  [FoodTruck]");
+			} else if (u instanceof PuestoDesarmable) {
+				System.out.println("  [PuestoDesarmable]");
 			}
 		}
 	}
