@@ -1,10 +1,13 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import dao.PedidoDao;
 import datos.Festival;
 import datos.Pedido;
+import datos.Plato;
+import dto.PlatoVendidoDTO;
 
 public class PedidoABM {
 	private static PedidoABM abm = null;
@@ -35,7 +38,11 @@ public class PedidoABM {
 		return dao.traer();
 	}
 	
-	public List<Object[]> traerTopPlatosPorFestival(Festival festival, int cant){
+	public List<PlatoVendidoDTO> traerTopPlatosPorFestival(Festival festival, int cant){
 		return dao.traerTopPlatosPorFestival(festival, cant);
 	}; 
+	
+	public List<Plato> traerPlatosVendidosPorPrecioYFechas(float precioMinimo, LocalDate desde, LocalDate hasta){
+		return dao.traerPlatosVendidosPorPrecioYFechas(precioMinimo, desde, hasta);
+	}
 }
